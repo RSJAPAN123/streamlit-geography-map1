@@ -1,0 +1,35 @@
+import streamlit as st
+import folium
+from streamlit_folium import st_folium
+
+# Create a Streamlit app
+st.title("Interactive Geography Map")
+
+# Define the map center
+map_center = [20.0, 0.0]  # Latitude and Longitude
+
+# Create a folium map centered around a specific location
+mymap = folium.Map(location=map_center, zoom_start=2)
+
+# List of cities with their coordinates and some information
+cities = [
+    {"name": "New York", "coordinates": [40.7128, -74.0060], "info": "Population: 8.3M"},
+    {"name": "London", "coordinates": [51.5074, -0.1278], "info": "Population: 8.9M"},
+    {"name": "Tokyo", "coordinates": [35.6895, 139.6917], "info": "Population: 14M"},
+    {"name": "Paris", "coordinates": [48.8566, 2.3522], "info": "Population: 2.1M"},
+    {"name": "Sydney", "coordinates": [-33.8688, 151.2093], "info": "Population: 5.3M"},
+]
+
+# Add markers for each city
+for city in cities:
+    folium.Marker(
+        location=city["coordinates"],
+        popup=f"{city['name']}: {city['info']}",
+        tooltip=city["name"]
+    ).add_to(mymap)
+
+# Display the map in Streamlit
+st_folium(mymap, width=725)
+
+# Run the app
+# To run the app, save this script as app.py and run `streamlit run app.py` in your terminal.
